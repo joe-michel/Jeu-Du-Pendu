@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div><button class="play" onclick="generateGame(mot)">Jouer au pendu</button></div>
+    <div class="mot"></div>
+    <div class="input"></div>
+    <script type="text/javascript">
+    /*  - Faire un tableau avec des mots.
+        - Choisir un mot de manière aléatoire.
+        - Afficher le nombre d' _ correspondant au nombre de lettre.
+        - Afficher le nombre de chance et le nombre de chances restante.
+        - La lettre s'affiche à la place du _ une fois trouvé.
+        - permettre la réinitalisation du jeu.
+    */
+
+    let mots = [ "message", "panthere", "carie", "douche", "planete", "visage", "finance", "fichier", "abeille", "ordinateur", "vehicule", "scorpion"  ];
+    let mot = mots[Math.floor(Math.random()*mots.length)];
+
+    function generateGame(mot) {
+        for(let i = 0; i < mot.length; i++) {
+            let underscore = document.createElement("span");
+            underscore.innerText = "_ ";
+            underscore.setAttribute("class","letter" + i);
+            document.querySelector(".mot").appendChild(underscore);
+            document.querySelector(".play").setAttribute("disabled", "");
+        }
+
+        let input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("class", "lettre");
+        document.querySelector(".input").appendChild(input);
+        let proposer = document.createElement("button");
+        proposer.setAttribute("value", "Proposer une lettre");
+        proposer.setAttribute("class", "proposer");
+        proposer.setAttribute("onclick", "checkLetter(document.querySelector('.lettre').value, mot)");
+        proposer.innerHTML = "Proposer une lettre";
+        document.querySelector(".input").appendChild(proposer);
+    }
+
+    function checkLetter(proposition, mot) {
+        let lettre = proposition;
+        let reussite = false;
+        for(let i = 0; i < mot.length; i++) {
+            if (proposition == mot.charAt(i)) {
+                reussite = true;
+                document.querySelector(".letter" + i).innerText = lettre;
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

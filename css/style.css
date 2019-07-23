@@ -1,0 +1,77 @@
+.play {
+    margin-left: 10%;
+    font-size: 2rem;
+    background-image:url(https://thumbs.dreamstime.com/t/blue-carbon-fiber-hexagon-pattern-blue-carbon-fiber-hexagon-pattern-background-texture-d-illustration-145408300.jpg);
+    color: white;
+    padding: 15px 20px 15px 20px;
+    border: black 2px solid;
+    border-radius: 15px;
+}
+
+.play:hover {
+    text-shadow: #7ce5ff 0px 0px 4px;
+    box-shadow: #7ce5ff 0px 0px 12px;
+    cursor: pointer;
+}
+
+.play:disabled {
+    color: grey;
+    animation: pulse 4s linear infinite;
+}
+
+.play:disabled:hover {
+    cursor: default;
+}
+
+.mot {
+    margin-top: 10vh;
+    margin-left: 20%;
+}
+
+body {
+    font-size: 5rem;
+    background-image: url(https://learnopengl.com/img/in-practice/breakout/textures/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #00ccff;
+}
+
+.input {
+    margin-left: 20%;
+}
+
+.lettre {
+    width: 35px;
+    font-size: 2rem;
+}
+
+.proposer {
+    margin-left: 1%;
+    font-size: 1.5rem;
+    background-image:url(https://thumbs.dreamstime.com/t/blue-carbon-fiber-hexagon-pattern-blue-carbon-fiber-hexagon-pattern-background-texture-d-illustration-145408300.jpg);
+    color: white;
+    padding: 15px 20px 15px 20px;
+    border: black 2px solid;
+    border-radius: 15px;
+}
+
+.proposer:hover {
+    text-shadow: #7ce5ff 0px 0px 4px;
+    box-shadow: #7ce5ff 0px 0px 12px;
+    cursor: pointer;
+}
+
+@keyframes pulse {
+    0%{
+        text-shadow: none;
+        box-shadow: none;
+    }
+    50%{
+        text-shadow: #a30000 0px 0px 8px;
+        box-shadow: #a30000 0px 0px 20px;
+    }
+    100%{
+        text-shadow: none;
+        box-shadow: none;
+    }
+}
