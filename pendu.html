@@ -14,6 +14,7 @@
     <div><button class="play" onclick="generateGame(mot)">Jouer au pendu</button></div>
     <div class="mot"></div>
     <div class="input"></div>
+    <div class="elimines"></div>
     <script type="text/javascript">
     /*  - Faire un tableau avec des mots.
         - Choisir un mot de manière aléatoire.
@@ -24,7 +25,12 @@
     */
 
     let mots = [ "message", "panthere", "carie", "douche", "planete", "visage", "finance", "fichier", "abeille", "ordinateur", "vehicule", "scorpion"  ];
-    let mot = mots[Math.floor(Math.random()*mots.length)];
+    let mot = chooseWord();
+
+    function chooseWord() {
+        let newMot = mots[Math.floor(Math.random()*mots.length)];
+        return newMot;
+    }
 
     function generateGame(mot) {
         for(let i = 0; i < mot.length; i++) {
@@ -39,21 +45,51 @@
         input.setAttribute("type", "text");
         input.setAttribute("class", "lettre");
         document.querySelector(".input").appendChild(input);
+
         let proposer = document.createElement("button");
         proposer.setAttribute("value", "Proposer une lettre");
         proposer.setAttribute("class", "proposer");
-        proposer.setAttribute("onclick", "checkLetter(document.querySelector('.lettre').value, mot)");
+        proposer.setAttribute("onclick", "checkLetter(document.querySelector('.lettre').value)");
         proposer.innerHTML = "Proposer une lettre";
         document.querySelector(".input").appendChild(proposer);
+
+        let elimines = document.createElement("h1");
+        elimines.innerHTML = "Lettres éliminées";
+        document.querySelector(".elimines").appendChild(elimines);
     }
 
-    function checkLetter(proposition, mot) {
+    function checkLetter(proposition) {
+        console.log(mot);
         let lettre = proposition;
         let reussite = false;
+        let partieFinie = true;
+
         for(let i = 0; i < mot.length; i++) {
             if (proposition == mot.charAt(i)) {
                 reussite = true;
                 document.querySelector(".letter" + i).innerText = lettre;
+            }
+            if (!/[a-z]{1}/.test(document.querySelector(".letter" + i).innerText)) {
+                partieFinie = false;
+            }
+        }
+        
+        if (reussite == false) {
+            lettreEliminee = document.createElement("span");
+            lettreEliminee.innerText = proposition + " | ";
+            document.querySelector(".elimines").appendChild(lettreEliminee);
+        }
+
+        if (partieFinie) {
+            document.querySelector(".proposer").setAttribute("disabled", "");
+            restart = window.confirm("Félicitations ! Vous avez gagné ! Recommencer avec un autre mot ?");
+            if (restart) {
+                document.querySelector(".mot").innerHTML = "";
+                document.querySelector(".input").innerHTML = "";
+                document.querySelector(".elimines").innerHTML = "";
+                mot = chooseWord();
+                console.log(mot);
+                generateGame(mot);
             }
         }
     }

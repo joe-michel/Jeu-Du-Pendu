@@ -61,7 +61,22 @@ body {
     cursor: pointer;
 }
 
-@keyframes pulse {
+.proposer:disabled {
+    color: grey;
+    animation: pulseGreen 4s linear infinite;
+}
+
+.proposer:disabled:hover {
+    cursor: default;
+}
+
+.elimines {
+    font-size: 2rem;
+    color: #a30000;
+    margin-top: 25vh;
+}
+
+@keyframes pulseRed {
     0%{
         text-shadow: none;
         box-shadow: none;
@@ -69,6 +84,21 @@ body {
     50%{
         text-shadow: #a30000 0px 0px 8px;
         box-shadow: #a30000 0px 0px 20px;
+    }
+    100%{
+        text-shadow: none;
+        box-shadow: none;
+    }
+}
+
+@keyframes pulseGreen {
+    0%{
+        text-shadow: none;
+        box-shadow: none;
+    }
+    50%{
+        text-shadow: #27c500 0px 0px 8px;
+        box-shadow: #27c500 0px 0px 20px;
     }
     100%{
         text-shadow: none;
