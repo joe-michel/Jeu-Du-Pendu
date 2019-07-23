@@ -16,7 +16,7 @@
 
 .play:disabled {
     color: grey;
-    animation: pulse 4s linear infinite;
+    animation: pulseRed 4s linear infinite;
 }
 
 .play:disabled:hover {
