@@ -16,7 +16,7 @@
 
 .play:disabled {
     color: grey;
-    animation: pulseRed 4s linear infinite;
+    animation: pulse 4s linear infinite;
 }
 
 .play:disabled:hover {
@@ -29,7 +29,7 @@
 }
 
 body {
-    font-size: 5rem;
+    font-size: 4rem;
     background-image: url(https://learnopengl.com/img/in-practice/breakout/textures/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -74,6 +74,10 @@ body {
     font-size: 2rem;
     color: #a30000;
     margin-top: 25vh;
+}
+
+.essais{
+    margin-left: 60%;
 }
 
 @keyframes pulseRed {

@@ -15,6 +15,7 @@
     <div class="mot"></div>
     <div class="input"></div>
     <div class="elimines"></div>
+    <div class="essais"></div>
     <script type="text/javascript">
     /*  - Faire un tableau avec des mots.
         - Choisir un mot de manière aléatoire.
@@ -26,6 +27,7 @@
 
     let mots = [ "message", "panthere", "carie", "douche", "planete", "visage", "finance", "fichier", "abeille", "ordinateur", "vehicule", "scorpion"  ];
     let mot = chooseWord();
+    let essais = 10;
 
     function chooseWord() {
         let newMot = mots[Math.floor(Math.random()*mots.length)];
@@ -33,6 +35,8 @@
     }
 
     function generateGame(mot) {
+        essais = 10;
+
         for(let i = 0; i < mot.length; i++) {
             let underscore = document.createElement("span");
             underscore.innerText = "_ ";
@@ -56,42 +60,67 @@
         let elimines = document.createElement("h1");
         elimines.innerHTML = "Lettres éliminées";
         document.querySelector(".elimines").appendChild(elimines);
+
+        document.querySelector(".essais").innerText = "vies restantes: " + essais;
     }
 
     function checkLetter(proposition) {
-        console.log(mot);
-        let lettre = proposition;
-        let reussite = false;
-        let partieFinie = true;
-
-        for(let i = 0; i < mot.length; i++) {
-            if (proposition == mot.charAt(i)) {
-                reussite = true;
-                document.querySelector(".letter" + i).innerText = lettre;
-            }
-            if (!/[a-z]{1}/.test(document.querySelector(".letter" + i).innerText)) {
-                partieFinie = false;
-            }
-        }
-        
-        if (reussite == false) {
-            lettreEliminee = document.createElement("span");
-            lettreEliminee.innerText = proposition + " | ";
-            document.querySelector(".elimines").appendChild(lettreEliminee);
+        if (!/[a-z]/.test(proposition) || proposition.length > 1) {
+            window.alert("Veuillez entrer une seule lettre minuscule (attention: Ne pas tenir compte des accents)");
         }
 
-        if (partieFinie) {
-            document.querySelector(".proposer").setAttribute("disabled", "");
-            restart = window.confirm("Félicitations ! Vous avez gagné ! Recommencer avec un autre mot ?");
-            if (restart) {
-                document.querySelector(".mot").innerHTML = "";
-                document.querySelector(".input").innerHTML = "";
-                document.querySelector(".elimines").innerHTML = "";
-                mot = chooseWord();
-                console.log(mot);
-                generateGame(mot);
+        else {
+            let lettre = proposition;
+            let reussite = false;
+            let partieFinie = true;
+
+            for(let i = 0; i < mot.length; i++) {
+                if (proposition == mot.charAt(i)) {
+                    reussite = true;
+                    document.querySelector(".letter" + i).innerText = lettre;
+                }
+                if (!/[a-z]/.test(document.querySelector(".letter" + i).innerText)) {
+                    partieFinie = false;
+                }
+            }
+            
+            if (reussite == false) {
+                lettreEliminee = document.createElement("span");
+                lettreEliminee.innerText = proposition + " | ";
+                document.querySelector(".elimines").appendChild(lettreEliminee);
+
+                essais--;
+                document.querySelector(".essais").innerText = "vies restantes: " + essais;
+
+                if (essais == 0) {
+                    document.querySelector(".essais").innerText = "vies restantes: " + essais + " !!";
+
+                }
+
+                if (essais == -1) {
+                    window.alert("Perdu :(  Cliquez sur OK pour réessayer avec un autre mot.")
+                    document.querySelector(".mot").innerHTML = "";
+                    document.querySelector(".input").innerHTML = "";
+                    document.querySelector(".elimines").innerHTML = "";
+                    mot = chooseWord();
+                    generateGame(mot);
+                }
+            }
+
+            if (partieFinie) {
+                document.querySelector(".proposer").setAttribute("disabled", "");
+                restart = window.confirm("Félicitations ! Vous avez gagné ! Recommencer avec un autre mot ?");
+                if (restart) {
+                    document.querySelector(".mot").innerHTML = "";
+                    document.querySelector(".input").innerHTML = "";
+                    document.querySelector(".elimines").innerHTML = "";
+                    mot = chooseWord();
+                    generateGame(mot);
+                }
             }
         }
+
+        document.querySelector(".lettre").value = "";
     }
     </script>
 </body>
